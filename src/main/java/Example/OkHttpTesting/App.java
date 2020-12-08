@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Enumeration;
 import java.util.Scanner;
 
 import javax.net.ssl.HostnameVerifier;
@@ -15,6 +16,7 @@ import javax.net.ssl.X509TrustManager;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -35,23 +37,29 @@ public class App {
 				.build();
 
 		System.out.println("connected");
-
+		
+		
 		Response response = client.newCall(request).execute();
+		Protocol prt = response.protocol();
+		
+		String en =  prt.name();
+		System.out.println(en);
+		System.out.println("Get request");
 		System.out.println(response.body().string());
 
 		System.out.println("Post Request");
-		String json = nameJson("Jesse", "Jake");
+		String json = nameJson(fName, lName);
 	    RequestBody body = RequestBody.create(json, JSON);
 	    Request request2 = new Request.Builder()
 	            .url("https://localhost:8443/testing")
 	            .post(body)
 	            .build();
-	    Response response2 = client.newCall(request).execute();
+	    Response response2 = client.newCall(request2).execute();
 	    System.out.println(response2.body().string());
 	}
 
 	static String nameJson(String fName, String lName) {
-		return "{'fullName':'" + fName + "'+'" + lName + "'";
+		return "{'fullName':'" + fName + " " + lName + "'}";
 	}
 
 	private static OkHttpClient getUnsafeOkHttpClient() {
