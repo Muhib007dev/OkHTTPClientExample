@@ -40,7 +40,7 @@ public class App {
 		System.out.println(response.body().string());
 
 		System.out.println("Post Request");
-		String json = nameJson("Jesse", "Jake");
+		String json = nameJson(fName, lName);
 	    RequestBody body = RequestBody.create(json, JSON);
 	    Request request2 = new Request.Builder()
 	            .url("https://localhost:8443/testing")
