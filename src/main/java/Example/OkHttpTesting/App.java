@@ -51,7 +51,7 @@ public class App {
 	}
 
 	static String nameJson(String fName, String lName) {
-		return "{'fullName':'" + fName + "'+'" + lName + "'";
+		return "{'fullName':'" + fName + "+" + lName + "'";
 	}
 
 	private static OkHttpClient getUnsafeOkHttpClient() {
